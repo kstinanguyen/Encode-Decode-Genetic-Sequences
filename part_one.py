@@ -17,7 +17,7 @@ def driver():
 
     for sequence in all_sequences:
         category = categorize_strand(sequence)
-        categorized_sequences[category].append(sequence)
+        categorized_sequences[category] = sequence
 
     print("-------------------------")
     print("Encoding sequences for storage...")
@@ -70,9 +70,13 @@ def encode_strand(strand):
         if strand[index - 1] == strand[index]:
             count += 1
         else:
-            new_entry = strand[index - 1] + count
+            new_entry = strand[index - 1] + str(count)
             encoding.append(new_entry)
             count = 1
+
+    # new_entry = strand[-1] + str(count)
+    # encoding.append(new_entry)
+    encoding.append(strand[index] + str(count))
 
     return "".join(encoding)
 
@@ -89,3 +93,5 @@ def decode_strand(encoding):
         strand.extend(next_base)
 
     return "".join(strand)
+
+
